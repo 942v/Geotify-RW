@@ -14,13 +14,12 @@
 
 @import MapKit;
 
-static NSString *kSavedItemsKey = @"savedItems";
-
-@interface GeotificationsViewController () <MKMapViewDelegate, AddGeotificationsViewControllerDelegate>
+@interface GeotificationsViewController () <MKMapViewDelegate, AddGeotificationsViewControllerDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (nonatomic, strong) NSMutableArray *geotifications;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -28,6 +27,10 @@ static NSString *kSavedItemsKey = @"savedItems";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager setDelegate:self];
+    [self.locationManager requestAlwaysAuthorization];
     
     [self loadAllGeotifications];
 }
@@ -82,15 +85,19 @@ static NSString *kSavedItemsKey = @"savedItems";
 
 - (void)updateGeotificationsCount{
     self.title = [NSString stringWithFormat:@"Geotifications (%lu)", (unsigned long)self.geotifications.count];
+    [self.navigationItem.rightBarButtonItem setEnabled:self.geotifications.count<20];
 }
 
 #pragma mark - AddGeotificationViewControllerDelegate
 
 - (void)addGeotificationViewController:(AddGeotificationViewController *)controller didAddCoordinate:(CLLocationCoordinate2D)coordinate radius:(CGFloat)radius identifier:(NSString *)identifier note:(NSString *)note eventType:(EventType)eventType{
     [controller dismissViewControllerAnimated:YES completion:nil];
-    // Add geotification
-    Geotification *geotification = [[Geotification alloc] initWithCoordinate:coordinate radius:radius identifier:identifier note:note eventType:eventType];
+    
+    CGFloat clampedRadius = (radius > self.locationManager.maximumRegionMonitoringDistance)?self.locationManager.maximumRegionMonitoringDistance : radius;
+    Geotification *geotification = [[Geotification alloc] initWithCoordinate:coordinate radius:clampedRadius identifier:identifier note:note eventType:eventType];
     [self addGeotification:geotification];
+    [self startMonitoringGeotification:geotification];
+    
     [self saveAllGeotifications];
 }
 
@@ -129,6 +136,7 @@ static NSString *kSavedItemsKey = @"savedItems";
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
     Geotification *geotification = (Geotification *) view.annotation;
+    [self stopMonitoringGeotification:geotification];
     [self removeGeotification:geotification];
     [self saveAllGeotifications];
 }
@@ -158,6 +166,54 @@ static NSString *kSavedItemsKey = @"savedItems";
 
 - (IBAction)zoomToCurrentLocation:(id)sender{
     [Utilities zoomToUserLocationInMapView:self.mapView];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    [self.mapView setShowsUserLocation:status==kCLAuthorizationStatusAuthorizedAlways];
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error{
+    NSLog(@"Monitoring failed for region with identifer: %@", region.identifier);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"Location Manager failed with the following error: %@", error);
+}
+
+#pragma mark - Geotifications
+
+- (CLCircularRegion *)regionWithGeotification:(Geotification *)geotification{
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:geotification.coordinate radius:geotification.radius identifier:geotification.identifier];
+    [region setNotifyOnEntry:geotification.eventType==OnEntry];
+    [region setNotifyOnExit:!region.notifyOnEntry];
+    
+    return region;
+}
+
+- (void)startMonitoringGeotification:(Geotification *)geotification{
+    if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+        [Utilities showSimpleAlertWithTitle:@"Error" message:@"Geofencing is not supported on this device!" viewController:self];
+        return;
+    }
+    
+    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways) {
+        [Utilities showSimpleAlertWithTitle:@"Warning" message:@"Your geotification is saved but will only be activated once you grant GeofencesTest permission to access the device location." viewController:self];
+    }
+    
+    CLCircularRegion *region = [self regionWithGeotification:geotification];
+    [self.locationManager startMonitoringForRegion:region];
+}
+
+- (void)stopMonitoringGeotification:(Geotification *)geotification{
+    for (CLCircularRegion *circularRegion in self.locationManager.monitoredRegions) {
+        if ([circularRegion isKindOfClass:[CLCircularRegion class]]) {
+            if ([circularRegion.identifier isEqualToString:geotification.identifier]) {
+                [self.locationManager stopMonitoringForRegion:circularRegion];
+            }
+        }
+    }
 }
 
 #pragma mark - Navigation

@@ -8,15 +8,31 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+#import "Geotification.h"
+#import "GeotificationsViewController.h"
+
+#import "Utilities.h"
+
+@import CoreLocation;
+
+@interface AppDelegate () <CLLocationManagerDelegate>
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager setDelegate:self];
+    [self.locationManager requestAlwaysAuthorization];
+    
+    [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     return YES;
 }
 
@@ -40,6 +56,54 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region{
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        [self handleRegionEvent:region];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region{
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        [self handleRegionEvent:region];
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)handleRegionEvent:(CLRegion *)region{
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        NSString *message = [self noteFromRegionIdentifier:region.identifier];
+        if (message) {
+            UIViewController *viewController = self.window.rootViewController;
+            if (viewController) {
+                [Utilities showSimpleAlertWithTitle:nil message:message viewController:viewController];
+            }
+        }
+    }else{
+        UILocalNotification *notification = [UILocalNotification new];
+        [notification setAlertBody:[self noteFromRegionIdentifier:region.identifier]];
+        [notification setSoundName:@"Default"];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    }
+}
+
+- (NSString *)noteFromRegionIdentifier:(NSString *)identifier{
+    NSArray *savedItems = [[NSUserDefaults standardUserDefaults] arrayForKey:kSavedItemsKey];
+    if(savedItems){
+        for (id savedItem in savedItems) {
+            Geotification *geotification = [NSKeyedUnarchiver unarchiveObjectWithData:savedItem];
+            if ([geotification isKindOfClass:[Geotification class]]) {
+                if ([geotification.identifier isEqualToString:identifier]) {
+                    return geotification.note;
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 @end

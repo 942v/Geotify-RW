@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString *kSavedItemsKey = @"savedItems";
+
 @interface GeotificationsViewController : UIViewController
 
 @end
