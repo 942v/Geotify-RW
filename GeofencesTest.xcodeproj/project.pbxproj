@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		1148CB4A1B2D4AAD00DB2969 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB491B2D4AAD00DB2969 /* main.m */; };
 		1148CB4D1B2D4AAD00DB2969 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB4C1B2D4AAD00DB2969 /* AppDelegate.m */; };
-		1148CB501B2D4AAD00DB2969 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB4F1B2D4AAD00DB2969 /* ViewController.m */; };
 		1148CB531B2D4AAD00DB2969 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1148CB511B2D4AAD00DB2969 /* Main.storyboard */; };
 		1148CB551B2D4AAD00DB2969 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1148CB541B2D4AAD00DB2969 /* Images.xcassets */; };
 		1148CB581B2D4AAD00DB2969 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1148CB561B2D4AAD00DB2969 /* LaunchScreen.xib */; };
 		1148CB641B2D4AAD00DB2969 /* GeofencesTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB631B2D4AAD00DB2969 /* GeofencesTestTests.m */; };
+		1148CB701B2D4DC100DB2969 /* GeotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB6F1B2D4DC100DB2969 /* GeotificationsViewController.m */; };
+		1148CB731B2D4F1A00DB2969 /* AddGeotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB721B2D4F1A00DB2969 /* AddGeotificationViewController.m */; };
+		1148CB761B2D517A00DB2969 /* Geotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB751B2D517A00DB2969 /* Geotification.m */; };
+		1148CB791B2D65F300DB2969 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1148CB781B2D65F300DB2969 /* Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +35,20 @@
 		1148CB491B2D4AAD00DB2969 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1148CB4B1B2D4AAD00DB2969 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1148CB4C1B2D4AAD00DB2969 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1148CB4E1B2D4AAD00DB2969 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1148CB4F1B2D4AAD00DB2969 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1148CB521B2D4AAD00DB2969 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1148CB541B2D4AAD00DB2969 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1148CB571B2D4AAD00DB2969 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1148CB5D1B2D4AAD00DB2969 /* GeofencesTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeofencesTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1148CB621B2D4AAD00DB2969 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1148CB631B2D4AAD00DB2969 /* GeofencesTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeofencesTestTests.m; sourceTree = "<group>"; };
+		1148CB6E1B2D4DC100DB2969 /* GeotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeotificationsViewController.h; sourceTree = "<group>"; };
+		1148CB6F1B2D4DC100DB2969 /* GeotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeotificationsViewController.m; sourceTree = "<group>"; };
+		1148CB711B2D4F1A00DB2969 /* AddGeotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGeotificationViewController.h; sourceTree = "<group>"; };
+		1148CB721B2D4F1A00DB2969 /* AddGeotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGeotificationViewController.m; sourceTree = "<group>"; };
+		1148CB741B2D517A00DB2969 /* Geotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geotification.h; sourceTree = "<group>"; };
+		1148CB751B2D517A00DB2969 /* Geotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geotification.m; sourceTree = "<group>"; };
+		1148CB771B2D65F300DB2969 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1148CB781B2D65F300DB2969 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +90,17 @@
 		1148CB461B2D4AAD00DB2969 /* GeofencesTest */ = {
 			isa = PBXGroup;
 			children = (
+				1148CB6D1B2D4D9600DB2969 /* Extras */,
 				1148CB4B1B2D4AAD00DB2969 /* AppDelegate.h */,
 				1148CB4C1B2D4AAD00DB2969 /* AppDelegate.m */,
-				1148CB4E1B2D4AAD00DB2969 /* ViewController.h */,
-				1148CB4F1B2D4AAD00DB2969 /* ViewController.m */,
+				1148CB6E1B2D4DC100DB2969 /* GeotificationsViewController.h */,
+				1148CB6F1B2D4DC100DB2969 /* GeotificationsViewController.m */,
+				1148CB711B2D4F1A00DB2969 /* AddGeotificationViewController.h */,
+				1148CB721B2D4F1A00DB2969 /* AddGeotificationViewController.m */,
+				1148CB741B2D517A00DB2969 /* Geotification.h */,
+				1148CB751B2D517A00DB2969 /* Geotification.m */,
+				1148CB771B2D65F300DB2969 /* Utilities.h */,
+				1148CB781B2D65F300DB2969 /* Utilities.m */,
 				1148CB511B2D4AAD00DB2969 /* Main.storyboard */,
 				1148CB541B2D4AAD00DB2969 /* Images.xcassets */,
 				1148CB561B2D4AAD00DB2969 /* LaunchScreen.xib */,
@@ -119,6 +135,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1148CB6D1B2D4D9600DB2969 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,6 +150,7 @@
 			buildConfigurationList = 1148CB671B2D4AAE00DB2969 /* Build configuration list for PBXNativeTarget "GeofencesTest" */;
 			buildPhases = (
 				1148CB401B2D4AAD00DB2969 /* Sources */,
+				11C7A8F21B2D73DD0073207A /* ShellScript */,
 				1148CB411B2D4AAD00DB2969 /* Frameworks */,
 				1148CB421B2D4AAD00DB2969 /* Resources */,
 			);
@@ -214,12 +238,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11C7A8F21B2D73DD0073207A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Auto Increment Version Number Script\nbuildPlist=$INFOPLIST_FILE\n#echo $buildPlist\nCFSVString=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"$buildPlist\")\nCFBundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$buildPlist\")\nBUILD_NR=${CFBundleVersion##*.}\n    BUILD_NR=$(($BUILD_NR + 1))\n    #echo $BUILD_NR\n    CFBundleVersion=$CFSVString\".0.\"$BUILD_NR\n    #echo $CFBundleVersion\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBundleVersion\" \"$buildPlist\"\n#echo \"Finish\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1148CB401B2D4AAD00DB2969 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1148CB501B2D4AAD00DB2969 /* ViewController.m in Sources */,
+				1148CB791B2D65F300DB2969 /* Utilities.m in Sources */,
+				1148CB731B2D4F1A00DB2969 /* AddGeotificationViewController.m in Sources */,
+				1148CB701B2D4DC100DB2969 /* GeotificationsViewController.m in Sources */,
+				1148CB761B2D517A00DB2969 /* Geotification.m in Sources */,
 				1148CB4D1B2D4AAD00DB2969 /* AppDelegate.m in Sources */,
 				1148CB4A1B2D4AAD00DB2969 /* main.m in Sources */,
 			);
@@ -416,6 +459,7 @@
 				1148CB691B2D4AAE00DB2969 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1148CB6A1B2D4AAE00DB2969 /* Build configuration list for PBXNativeTarget "GeofencesTestTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +468,7 @@
 				1148CB6C1B2D4AAE00DB2969 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  GeotificationsViewController.h
 //  GeofencesTest
 //
 //  Created by Guillermo Saenz on 6/14/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface GeotificationsViewController : UIViewController
 
 @end
-
